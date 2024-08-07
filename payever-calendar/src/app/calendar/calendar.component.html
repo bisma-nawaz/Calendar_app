@@ -1,0 +1,25 @@
+<mat-card class="appointment-card">
+    <mat-card-header>
+      <mat-card-title>{{ appointment.title }}</mat-card-title>
+      <mat-card-subtitle>{{ appointment.date }}</mat-card-subtitle>
+    </mat-card-header>
+    <button mat-button color="warn" (click)="onDelete()">Delete</button>
+  </mat-card>
+  
+  <form (submit)="onSubmit()">
+    <mat-card class="appointment-card">
+      <mat-card-header>
+        <mat-card-title>Add New Appointment</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <label for="title">Title</label>
+        <!-- Use optional chaining to ensure $event.target is not null -->
+        <input id="title" placeholder="Title" (input)="appointment.title = $event.target?.value">
+        <label for="date">Date</label>
+        <!-- Use optional chaining to ensure $event.target is not null -->
+        <input id="date" placeholder="Date" type="date" (input)="appointment.date = $event.target?.value">
+      </mat-card-content>
+      <button mat-raised-button color="primary" type="submit">Add Appointment</button>
+    </mat-card>
+  </form>
+  
