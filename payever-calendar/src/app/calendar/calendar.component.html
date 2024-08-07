@@ -5,16 +5,17 @@
   </div>
   <div>
     <label for="date">Date:</label>
-    <input id="date" type="date" name="date" [(ngModel)]="appointment.date" required>
+    <input id="date" type="date" name="date" [ngModel]="appointment.date | date:'yyyy-MM-dd'" (ngModelChange)="appointment.date = $event" required>
   </div>
-  <button type="submit">Add Appointment</button>
+  <button type="submit">{{ isEditing ? 'Update' : 'Add' }} Appointment</button>
+  <button *ngIf="isEditing" type="button" (click)="cancelEdit()">Cancel</button>
 </form>
-
 <div>
   <h3>Appointments</h3>
-  <ul>
-    <li *ngFor="let apt of appointments$ | async">
+  <ul cdkDropList (cdkDropListDropped)="drop($event)">
+    <li *ngFor="let apt of appointments$ | async" cdkDrag>
       {{apt.title}} - {{apt.date | date}}
+      <button (click)="editAppointment(apt)">Edit</button>
       <button (click)="deleteAppointment(apt.id)">Delete</button>
     </li>
   </ul>

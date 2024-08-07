@@ -30,4 +30,11 @@ export class AppointmentService {
       this.appointmentsSubject.next([...currentAppointments]);
     }
   }
+
+  moveAppointment(previousIndex: number, currentIndex: number): void {
+    const currentAppointments = this.appointmentsSubject.value;
+    const [removed] = currentAppointments.splice(previousIndex, 1);
+    currentAppointments.splice(currentIndex, 0, removed);
+    this.appointmentsSubject.next([...currentAppointments]);
+  }
 }
