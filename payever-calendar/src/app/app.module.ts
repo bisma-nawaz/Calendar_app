@@ -10,6 +10,13 @@ import { CalendarModule } from './calendar/calendar.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -24,7 +31,13 @@ import { CommonModule } from '@angular/common';
     DatePipe,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatCardModule
   ],
   bootstrap: [AppComponent]
 })

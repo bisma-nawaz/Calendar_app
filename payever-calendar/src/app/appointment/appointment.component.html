@@ -1,3 +1,11 @@
-    <h1>{{ appointment.title }}</h1>
-    <h2>{{ appointment.date  }}</h2>
-    <button color="warn" (click)="onDelete()">Delete</button>
+<mat-form-field appearance="fill">
+    <mat-label>Title:</mat-label>
+    <input matInput [(ngModel)]="appointment.title" required>
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Date:</mat-label>
+    <input matInput [(ngModel)]="appointment.date" [matDatepicker]="picker" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>

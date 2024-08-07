@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DayCalendarComponent } from './day-calendar.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -9,29 +10,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CalendarComponent } from './calendar.component';
 import { DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { DayCalendarModule } from '../day-calendar/day-calendar.module';  
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CalendarModule } from '../calendar/calendar.module';
+
 @NgModule({
-  declarations: [CalendarComponent],
+  declarations: [DayCalendarComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatNativeDateModule,
     DragDropModule,
     BrowserModule,
-    DayCalendarModule
+    DatePipe,
+    CalendarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DatePipe],
-  exports: [CalendarComponent]
+  exports: [DayCalendarComponent]  // Make sure it's exported if you need to use it elsewhere
 })
-export class CalendarModule { }
+export class DayCalendarModule { }
