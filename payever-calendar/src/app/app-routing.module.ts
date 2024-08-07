@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { CalendarModule } from './calendar/calendar.module';
 const routes: Routes = [
-  { path: '', redirectTo: 'calendar', pathMatch: 'full' },  // Ensure no leading slash
+  { path: '', redirectTo: 'calendar', pathMatch: 'full' },  
   { 
     path: 'calendar', 
     loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)

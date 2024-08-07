@@ -1,32 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './calendar/calendar.component';
-
+import { AppointmentModule } from './appointment/appointment.module';
+import { CalendarModule } from './calendar/calendar.module';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
-    AppComponent,
-    CalendarComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
+    MatToolbarModule,
     DragDropModule,
+    AppointmentModule,
+    CalendarModule,
+    DatePipe,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

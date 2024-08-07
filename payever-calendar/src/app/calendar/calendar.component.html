@@ -1,25 +1,21 @@
-<mat-card class="appointment-card">
-    <mat-card-header>
-      <mat-card-title>{{ appointment.title }}</mat-card-title>
-      <mat-card-subtitle>{{ appointment.date }}</mat-card-subtitle>
-    </mat-card-header>
-    <button mat-button color="warn" (click)="onDelete()">Delete</button>
-  </mat-card>
-  
-  <form (submit)="onSubmit()">
-    <mat-card class="appointment-card">
-      <mat-card-header>
-        <mat-card-title>Add New Appointment</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <label for="title">Title</label>
-        <!-- Use optional chaining to ensure $event.target is not null -->
-        <input id="title" placeholder="Title" (input)="appointment.title = $event.target?.value">
-        <label for="date">Date</label>
-        <!-- Use optional chaining to ensure $event.target is not null -->
-        <input id="date" placeholder="Date" type="date" (input)="appointment.date = $event.target?.value">
-      </mat-card-content>
-      <button mat-raised-button color="primary" type="submit">Add Appointment</button>
-    </mat-card>
-  </form>
-  
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="title" [(ngModel)]="appointment.title" required>
+  </div>
+  <div>
+    <label for="date">Date:</label>
+    <input id="date" type="date" name="date" [(ngModel)]="appointment.date" required>
+  </div>
+  <button type="submit">Add Appointment</button>
+</form>
+
+<div>
+  <h3>Appointments</h3>
+  <ul>
+    <li *ngFor="let apt of appointments$ | async">
+      {{apt.title}} - {{apt.date | date}}
+      <button (click)="deleteAppointment(apt.id)">Delete</button>
+    </li>
+  </ul>
+</div>
