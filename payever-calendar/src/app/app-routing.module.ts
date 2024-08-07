@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
+import { CalendarModule } from './calendar/calendar.module';
 const routes: Routes = [
   { path: '', redirectTo: 'calendar', pathMatch: 'full' },  // Ensure no leading slash
   { 
@@ -10,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CommonModule, CalendarModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
