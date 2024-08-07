@@ -14,10 +14,14 @@ import { DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { DayCalendarModule } from '../day-calendar/day-calendar.module';  
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { AppointmentComponent } from '../appointment/appointment.component';
+
 @NgModule({
   declarations: [CalendarComponent],
   imports: [
     CommonModule,
+    AppointmentComponent,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -28,7 +32,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatFormFieldModule,
     DragDropModule,
     BrowserModule,
-    DayCalendarModule
+    DayCalendarModule,
+    MatIconModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DatePipe],

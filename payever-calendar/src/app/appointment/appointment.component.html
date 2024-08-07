@@ -1,11 +1,23 @@
-<mat-form-field appearance="fill">
-    <mat-label>Title:</mat-label>
-    <input matInput [(ngModel)]="appointment.title" required>
-  </mat-form-field>
-  
-  <mat-form-field appearance="fill">
-    <mat-label>Date:</mat-label>
-    <input matInput [(ngModel)]="appointment.date" [matDatepicker]="picker" required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<h2 mat-dialog-title>Add Appointment</h2>
+<mat-dialog-content>
+  <form [formGroup]="appointmentForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()" [disabled]="!appointmentForm.valid">Save</button>
+</mat-dialog-actions>

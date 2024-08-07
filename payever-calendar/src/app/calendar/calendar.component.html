@@ -1,22 +1,30 @@
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="title">Title:</label>
-    <input id="title" type="text" name="title" [(ngModel)]="appointment.title" required>
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button mat-icon-button (click)="previousMonth()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <h2>{{ currentDate | date:'MMMM yyyy' }}</h2>
+    <button mat-icon-button (click)="nextMonth()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
   </div>
-  <div>
-    <label for="date">Date:</label>
-    <input id="date" type="date" name="date" [ngModel]="appointment.date | date:'yyyy-MM-dd'" (ngModelChange)="appointment.date = $event" required>
+  <div class="calendar-body">
+    <div class="weekdays">
+      <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" class="weekday">{{ day }}</div>
+    </div>
+    <div class="weeks">
+      <div class="week" *ngFor="let week of weeks">
+        <div class="day" *ngFor="let day of week; let dayIndex = index"
+             [ngClass]="{'other-month': !isCurrentMonth(day)}"
+             (click)="openAppointmentDialog(getDateFromDay(day))">
+          <div class="date">{{ day }}</div>
+          <div class="appointments">
+            <div *ngFor="let apt of getAppointmentsForDate(getDateFromDay(day)) | async" class="appointment">
+              {{ apt.title }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button type="submit">{{ isEditing ? 'Update' : 'Add' }} Appointment</button>
-  <button *ngIf="isEditing" type="button" (click)="cancelEdit()">Cancel</button>
-</form>
-<div>
-  <h3>Appointments</h3>
-  <ul cdkDropList (cdkDropListDropped)="drop($event)">
-    <li *ngFor="let apt of appointments$ | async" cdkDrag>
-      {{apt.title}} - {{apt.date | date}}
-      <button (click)="editAppointment(apt)">Edit</button>
-      <button (click)="deleteAppointment(apt.id)">Delete</button>
-    </li>
-  </ul>
 </div>
