@@ -16,6 +16,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    DragDropModule
   ],
   exports: [
     AppointmentComponent

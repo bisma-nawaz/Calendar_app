@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Appointment</h2>
+<h2 mat-dialog-title>{{ data.appointment ? 'Update Appointment' : 'Add Appointment' }}</h2>
 <mat-dialog-content>
   <form [formGroup]="appointmentForm">
     <mat-form-field appearance="fill">
@@ -19,5 +19,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onSubmit()" [disabled]="!appointmentForm.valid">Save</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!appointmentForm.valid">Save</button>
+  <button mat-button *ngIf="data.appointment" color="warn" (click)="onDelete()">Delete</button>
 </mat-dialog-actions>

@@ -10,16 +10,25 @@
   </div>
   <div class="calendar-body">
     <div class="weekdays">
-      <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" class="weekday">{{ day }}</div>
+      <div *ngFor="let dayName of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" class="weekday">{{ dayName }}</div>
     </div>
     <div class="weeks">
-      <div class="week" *ngFor="let week of weeks">
+      <div class="week" *ngFor="let week of weeks; let weekIndex = index">
         <div class="day" *ngFor="let day of week; let dayIndex = index"
              [ngClass]="{'other-month': !isCurrentMonth(day)}"
-             (click)="openAppointmentDialog(getDateFromDay(day))">
+             (click)="day !== null ? openAppointmentDialog(getDateFromDay(day)) : null">
           <div class="date">{{ day }}</div>
-          <div class="appointments">
-            <div *ngFor="let apt of getAppointmentsForDate(getDateFromDay(day)) | async" class="appointment">
+          <div class="appointments"
+               cdkDropList
+               [cdkDropListData]="day !== null ? appointmentsByDate[getDateKey(getDateFromDay(day))].value || [] : []"
+               [id]="'dayDropList-' + ((weekIndex * 7) + dayIndex)"
+               [cdkDropListConnectedTo]="allDropLists"
+               [cdkDropListSortingDisabled]="true"
+               (cdkDropListDropped)="onDrop($event)">
+            <div *ngFor="let apt of (day !== null ? appointmentsByDate[getDateKey(getDateFromDay(day))].value : [])" 
+                 class="appointment" 
+                 cdkDrag
+                 (click)="openAppointmentDialog(getDateFromDay(day), apt, $event)">
               {{ apt.title }}
             </div>
           </div>

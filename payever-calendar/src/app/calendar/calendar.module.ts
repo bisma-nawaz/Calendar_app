@@ -8,14 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDrop, DragDropModule, DragDropRegistry } from '@angular/cdk/drag-drop';
 import { CalendarComponent } from './calendar.component';
 import { DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { DayCalendarModule } from '../day-calendar/day-calendar.module';  
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AppointmentComponent } from '../appointment/appointment.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CdkDragMove } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [CalendarComponent],
@@ -32,8 +33,10 @@ import { AppointmentComponent } from '../appointment/appointment.component';
     MatFormFieldModule,
     DragDropModule,
     BrowserModule,
-    DayCalendarModule,
-    MatIconModule
+    MatIconModule,
+    DragDrop,
+    DragDropRegistry,
+    MatDialogModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DatePipe],

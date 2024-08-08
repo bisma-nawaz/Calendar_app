@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { Appointment } from '../shared/models/appointment.model';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { AppointmentService } from './appointment.service';
 @Component({
   selector: 'app-appointment',
   standalone: true,
@@ -34,19 +34,29 @@ export class AppointmentComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AppointmentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { date: Date },
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: { date: Date; appointment?: Appointment },
+    private fb: FormBuilder,
+    private appointmentService: AppointmentService 
+
   ) {
     this.appointmentForm = this.fb.group({
-      title: ['', Validators.required],
-      date: [data.date, Validators.required],
-      description: ['']
+      id: [data.appointment?.id || ''],
+      title: [data.appointment?.title || '', Validators.required],
+      date: [data.appointment?.date || data.date, Validators.required],
+      description: [data.appointment?.description || '']
     });
   }
 
   onSubmit(): void {
     if (this.appointmentForm.valid) {
       this.dialogRef.close(this.appointmentForm.value);
+    }
+  }
+  onDelete(): void {
+    if (this.data.appointment?.id) {
+      this.appointmentService.deleteAppointment(this.data.appointment.id).subscribe(() => {
+        this.dialogRef.close(); 
+      });
     }
   }
 

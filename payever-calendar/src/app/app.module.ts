@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalendarComponent } from './calendar/calendar.component';
+import { CdkDragMove } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     MatCardModule,
     MatIconModule,
     MatDialogModule,
-    CalendarComponent
+    CalendarComponent,
   ],
   bootstrap: [AppComponent]
 })

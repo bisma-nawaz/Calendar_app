@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable , of} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Appointment } from '../shared/models/appointment.model';
 
@@ -8,6 +8,7 @@ import { Appointment } from '../shared/models/appointment.model';
 })
 export class AppointmentService {
   private appointments = new BehaviorSubject<Appointment[]>([]);
+  
 
   getAppointments(): Observable<Appointment[]> {
     return this.appointments.asObservable();
@@ -15,7 +16,7 @@ export class AppointmentService {
 
   addAppointment(appointment: Appointment): void {
     const currentAppointments = this.appointments.getValue();
-    appointment.id = Date.now().toString();  // Ensure each appointment has a unique ID
+    appointment.id = Date.now().toString();  
     this.appointments.next([...currentAppointments, appointment]);
   }
   
@@ -28,11 +29,8 @@ export class AppointmentService {
       this.appointments.next([...currentAppointments]);
     }
   }
+  
 
-  deleteAppointment(id: string): void {
-    const currentAppointments = this.appointments.getValue();
-    this.appointments.next(currentAppointments.filter(apt => apt.id !== id));
-  }
 
   getAppointmentsForDate(date: Date): Observable<Appointment[]> {
     return this.appointments.pipe(
@@ -44,14 +42,19 @@ export class AppointmentService {
     );
   }
 
+  deleteAppointment(id: string): Observable<void> {
+    const currentAppointments = this.appointments.getValue();
+    this.appointments.next(currentAppointments.filter(apt => apt.id !== id));
+    return of(void 0);
+  }
   moveAppointment(appointment: Appointment, previousDate: Date, newDate: Date): void {
     const appointments = this.appointments.getValue();
-    const index = appointments.findIndex(apt => apt.id === appointment.id && apt.date.toISOString() === previousDate.toISOString());
+    const index = appointments.findIndex(apt => apt.id === appointment.id);
     if (index !== -1) {
-      appointments[index].date = newDate; // Directly update the date
+      const updatedAppointment = { ...appointments[index], date: newDate };
+      appointments[index] = updatedAppointment;
       this.appointments.next([...appointments]);
     }
   }
-  
   
 }
